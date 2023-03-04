@@ -11,5 +11,19 @@
     display: grid;
     grid-template-columns: 400px 400px 400px 400px;
     grid-template-rows: 300px 300px 300px 300px;
+}
 
+/* ANIMATIONS */
+@keyframes fade-in {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+.img {
+    animation-name: fade-in;
+    animation-duration: 2s;
 }
