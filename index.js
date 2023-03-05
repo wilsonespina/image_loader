@@ -9,19 +9,7 @@
 */
 
 
-
-
-/*
-1. create img DOM element
-- add img attributes (img url, classes)
-
-2. load 1 image
-3. wait until image is loaded
-4. repeat 1 - 3 X NUMBER_OF_IMAGES times
-
-*/
-
-const NUMBER_OF_IMAGES = 50;
+const NUMBER_OF_IMAGES = 150;
 const IMG_WIDTH = 400;
 const IMG_HEIGHT = 300;
 
@@ -32,7 +20,7 @@ const createImage = async() => {
     imageElement.classList.add('img');
     imageElement.src = `https://picsum.photos/${IMG_WIDTH}/${IMG_HEIGHT}?random=${Math.floor(Math.random() * 100)}`;
     // imageElement.loading = 'lazy';
-    return new Promise((resolve) => resolve(imageElement));
+    return Promise.resolve(imageElement);
 };
 
 const loadImage = async(elem) => {
@@ -42,14 +30,16 @@ const loadImage = async(elem) => {
     });
 };
 
-const appendImage = (img) => {
+const appendImage = async(img) => {
     containerEl.appendChild(img);
 };
 
 const addImage = async() => {
     try {
         const img = await createImage();
+        console.log("🚀 ~ file: index.js:40 ~ addImage ~ img:", img)
         const loadedImage = await loadImage(img);
+        console.log("🚀 ~ file: index.js:42 ~ addImage ~ loadedImage:", loadedImage)
         if (img.complete) {
             return appendImage(loadedImage);
         }
@@ -58,14 +48,13 @@ const addImage = async() => {
     }
 };
 
+
 const addImages = async (imageCount) => {
     for (let i = 0; i < imageCount; i++) {
         addImage();
     }
+
 };
-
-
-
 
 document.addEventListener('DOMContentLoaded', async() => {
     await addImages(NUMBER_OF_IMAGES);
